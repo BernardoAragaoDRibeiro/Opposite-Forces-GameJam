@@ -22,8 +22,12 @@ namespace StarterAssets
 		public float SpeedChangeRate = 10.0f;
 
 		[Space(10)]
-		[Tooltip("The height the player can jump")]
-		public float JumpHeight = 1.2f;
+		[Tooltip("Altura mínima do pulo (0% de carga)")]
+		public float MinJumpHeight = 0.5f;
+		[Tooltip("Altura máxima do pulo (100% de carga)")]
+		public float MaxJumpHeight = 3.0f;
+		[Tooltip("Tempo em segundos para carregar 100%")]
+		public float MaxChargeTime = 1.0f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float Gravity = -15.0f;
 
@@ -59,10 +63,16 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+		public float LastFallVelocity { get; private set; }
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+
+		// charge jump
+		private float _jumpCharge = 0f;
+		private bool _isCharging = false;
+		public float JumpCharge => _jumpCharge; // lido pela UI
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -208,14 +218,31 @@ namespace StarterAssets
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
 				{
+					LastFallVelocity = _verticalVelocity;
 					_verticalVelocity = -2f;
 				}
 
-				// Jump
-				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+				// Charge Jump
+				if (_jumpTimeoutDelta <= 0.0f)
 				{
-					// the square root of H * -2 * G = how much velocity needed to reach desired height
-					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+					#if ENABLE_INPUT_SYSTEM
+					bool jumpHeld = Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+					#else
+					bool jumpHeld = Input.GetKey(KeyCode.Space);
+					#endif
+
+					if (jumpHeld)
+					{
+						_isCharging = true;
+						_jumpCharge = Mathf.Clamp01(_jumpCharge + Time.deltaTime / MaxChargeTime);
+					}
+					else if (_isCharging)
+					{
+						float jumpHeight = Mathf.Lerp(MinJumpHeight, MaxJumpHeight, _jumpCharge);
+						_verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Gravity);
+						_jumpCharge = 0f;
+						_isCharging = false;
+					}
 				}
 
 				// jump timeout
@@ -237,6 +264,10 @@ namespace StarterAssets
 
 				// if we are not grounded, do not jump
 				_input.jump = false;
+
+				// zera carga se sair do chão sem ter soltado
+				_jumpCharge = 0f;
+				_isCharging = false;
 			}
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
@@ -244,6 +275,11 @@ namespace StarterAssets
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
+		}
+
+		public void Bounce(float force)
+		{
+			_verticalVelocity = force;
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
