@@ -5,7 +5,6 @@ public class Enemy : MonoBehaviour
 {
     [Header("Hit Feedback")]
     public Color HitColor = Color.orange;
-    public float HitFlashDuration = 0.1f;
     public float HitFreezeDuration = 0.1f;
 
     private Renderer _renderer;
@@ -65,7 +64,7 @@ public class Enemy : MonoBehaviour
         if (agent != null) agent.isStopped = false;
         if (ai != null) ai.enabled = true;
         
-        yield return new WaitForSeconds(HitFlashDuration - HitFreezeDuration);
+        yield return new WaitForSeconds(HitFreezeDuration);
         
         // turn back original colors
         if (_renderer != null) _renderer.material.color = _originalColor;
