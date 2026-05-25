@@ -41,6 +41,11 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log($"{gameObject.name} died.");
+    
+        WaveManager waveManager = FindFirstObjectByType<WaveManager>();
+        if (waveManager != null)
+            waveManager.OnEnemyDied();
+
         Destroy(gameObject);
     }
 

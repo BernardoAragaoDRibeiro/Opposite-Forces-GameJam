@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4077057385646355253}
   - component: {fileID: 1479831464230036932}
   - component: {fileID: 5483394132232627076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Beholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   RetreatingSpeed: 2
   ProjectileSpeed: 10
   AttackCooldown: 2
-  ProjectilePrefab: {fileID: 0}
+  ProjectilePrefab: {fileID: 664236569012219442, guid: c20088a37bd02ba4e8fe2bed4b7d3cfc, type: 3}
   FirePoint: {fileID: 3947900222968046795}
 --- !u!114 &5483394132232627076
 MonoBehaviour:
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3947900222968046795}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 7507027701815117743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.41}
+  m_LocalPosition: {x: 0, y: 0, z: 0.487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
