@@ -259,6 +259,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4735444501804600678, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_CameraType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735444501804600678, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -299,9 +307,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_FocalLength
+      value: 21.982569
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_SensorSize.x
+      value: 21.946
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_SensorSize.y
+      value: 16.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430823, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
       propertyPath: m_Name
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018249871969862650, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018249871969862650, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: ShowDebugText
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018249871969862650, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: IgnoreTimeScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018249871969862650, guid: 62cd25fb87b64a349ae7e1a9cb74d107, type: 3}
+      propertyPath: LensModeOverride.Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -365,6 +421,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2095693316991417302, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: canPush
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095693316991417302, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: strength
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4135013735270702863, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -389,6 +453,30 @@ PrefabInstance:
       propertyPath: m_Actions
       value: 
       objectReference: {fileID: -944628639613478452, guid: fd1aaf9f4830209468fd088dcbc30234, type: 3}
+    - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: Gravity
+      value: -22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: MoveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: SprintSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: MaxChargeTime
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: MaxJumpHeight
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: RotationSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8935827149638224503, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
       propertyPath: GroundLayers.m_Bits
       value: 128
@@ -708,6 +796,10 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 1097313350}
+    - target: {fileID: 8762286023885395323, guid: 7c425c9ddb831e54ebbb056b5fa4cf41, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

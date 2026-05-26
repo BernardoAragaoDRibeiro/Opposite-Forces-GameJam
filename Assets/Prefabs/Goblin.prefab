@@ -128,7 +128,7 @@ MonoBehaviour:
   MinImpactVelocity: 0
   MaxImpactVelocity: 20
   MaxDamage: 100
-  BounceStrength: 8
+  BounceStrength: 14
 --- !u!1 &8992447881160316824
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   HitColor: {r: 1, g: 0.5490196, b: 0, a: 1}
   HitFreezeDuration: 0.1
-  MaxHP: 100
+  MaxHP: 10
 --- !u!195 &5633503594202862173
 NavMeshAgent:
   m_ObjectHideFlags: 0
