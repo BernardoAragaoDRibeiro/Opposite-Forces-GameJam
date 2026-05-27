@@ -128,7 +128,7 @@ MonoBehaviour:
   MinImpactVelocity: 0
   MaxImpactVelocity: 20
   MaxDamage: 100
-  BounceStrength: 14
+  BounceStrength: 18
 --- !u!1 &8992447881160316824
 GameObject:
   m_ObjectHideFlags: 0
