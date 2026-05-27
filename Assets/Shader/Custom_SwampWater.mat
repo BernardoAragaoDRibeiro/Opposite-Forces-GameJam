@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_SwampWater
+  m_Shader: {fileID: 4800000, guid: 229f2af7b648423469ce5deabac48cb2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _TextureA:
+        m_Texture: {fileID: 2800000, guid: 243f4c51c437fc44a9374bce79853766, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureB:
+        m_Texture: {fileID: 2800000, guid: 33f1f7985ebc297428a53ee7eb3d478f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 0.479
+    - _NoiseScale: 4
+    - _NoiseStrength: 0.105
+    - _PixelScale: 256
+    - _SmoothMax: 0.856
+    - _SmoothMin: 0.227
+    - _Speed: 0.2
+    - _TexResolution: 64
+    - _Threshold: 0.605
+    - _VoronoiScale: 1.55
+    m_Colors:
+    - _SpeedA: {r: -0.05, g: 0.08, b: 0, a: 0}
+    - _SpeedB: {r: -0.05, g: 0.08, b: 0, a: 0}
+    - _SpeedNoise: {r: 0.03, g: 0.02, b: 0, a: 0}
+    - _Tiling: {r: 333, g: 333, b: 333, a: 333}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
