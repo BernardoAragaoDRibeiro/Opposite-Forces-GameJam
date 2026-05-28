@@ -4,12 +4,18 @@ using System.Collections.Generic;
 
 public class TerrainAutoTexture : EditorWindow
 {
-    private Terrain terrain;
+    private List<Terrain> terrains = new List<Terrain>();
+    private bool autoFindTerrains = false;
 
     private int grassLayerIndex = 0;
     private int rockLayerIndex = 1;
     private float flatAngle = 30f;
     private float steepAngle = 45f;
+
+    // Smooth settings
+    private bool smoothFoldout = true;
+    private float smoothStrength = 1f;
+    private int smoothPasses = 1;
 
     private enum BlendMode { Uniform, Noise }
 
@@ -29,12 +35,9 @@ public class TerrainAutoTexture : EditorWindow
         public float heightMax = 1.5f;
         public bool foldout = true;
         public BlendMode blendMode = BlendMode.Uniform;
-
-        // Noise settings
         public float noiseScale = 20f;
         public float noiseSharpness = 2f;
         public Vector2 noiseOffset = Vector2.zero;
-
         public List<LayerEntry> layers = new List<LayerEntry>()
         {
             new LayerEntry(),
@@ -58,11 +61,72 @@ public class TerrainAutoTexture : EditorWindow
         GUILayout.Label("Terrain Auto Texture", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
-        terrain = (Terrain)EditorGUILayout.ObjectField("Terrain", terrain, typeof(Terrain), true);
+        // --- Terrain list ---
+        GUILayout.Label("Terrains", EditorStyles.boldLabel);
+        EditorGUILayout.BeginHorizontal();
+        autoFindTerrains = EditorGUILayout.Toggle("Auto-find all in scene", autoFindTerrains);
+        if (GUILayout.Button("Find Now", GUILayout.Width(80)))
+        {
+            terrains.Clear();
+            foreach (Terrain t in FindObjectsOfType<Terrain>())
+                terrains.Add(t);
+        }
+        EditorGUILayout.EndHorizontal();
+
+        if (!autoFindTerrains)
+        {
+            int removeIdx = -1;
+            for (int i = 0; i < terrains.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                terrains[i] = (Terrain)EditorGUILayout.ObjectField("Terrain " + i, terrains[i], typeof(Terrain), true);
+                if (GUILayout.Button("-", GUILayout.Width(24)))
+                    removeIdx = i;
+                EditorGUILayout.EndHorizontal();
+            }
+            if (removeIdx >= 0) terrains.RemoveAt(removeIdx);
+            if (GUILayout.Button("+ Add Terrain"))
+                terrains.Add(null);
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("Will apply to ALL Terrain objects found in the scene.", MessageType.Info);
+        }
 
         EditorGUILayout.Space();
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-        // Slope
+        // --- Smooth section ---
+        smoothFoldout = EditorGUILayout.Foldout(smoothFoldout, "Smooth Heightmap", true, EditorStyles.boldLabel);
+        if (smoothFoldout)
+        {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.HelpBox("Smooths the terrain heightmap independently from texturing. Apply this first, then apply textures.", MessageType.None);
+            EditorGUILayout.Space();
+
+            GUILayout.Label("Strength (1 = very subtle, 10 = strong)", EditorStyles.miniLabel);
+            smoothStrength = EditorGUILayout.Slider("Strength", smoothStrength, 1f, 10f);
+
+            GUILayout.Label("Passes (more passes = smoother result)", EditorStyles.miniLabel);
+            smoothPasses = EditorGUILayout.IntSlider("Passes", smoothPasses, 1, 20);
+
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Apply Smooth"))
+            {
+                List<Terrain> targets = GetTargetTerrains();
+                if (targets.Count == 0)
+                    EditorUtility.DisplayDialog("No Terrains", "No terrains selected.", "OK");
+                else
+                    foreach (Terrain t in targets)
+                        if (t != null) SmoothTerrain(t);
+            }
+            EditorGUILayout.EndVertical();
+        }
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+        // --- Slope ---
         GUILayout.Label("Slope Settings", EditorStyles.boldLabel);
         GUILayout.Label("Layer Indexes (check your Terrain Inspector)", EditorStyles.miniLabel);
         grassLayerIndex = EditorGUILayout.IntField("Grass Layer Index", grassLayerIndex);
@@ -75,7 +139,7 @@ public class TerrainAutoTexture : EditorWindow
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-        // Height bands
+        // --- Height bands ---
         GUILayout.Label("Height Bands", EditorStyles.boldLabel);
         GUILayout.Label("Each band overrides slope rules in its height range.", EditorStyles.miniLabel);
         EditorGUILayout.Space();
@@ -96,20 +160,15 @@ public class TerrainAutoTexture : EditorWindow
             if (band.foldout)
             {
                 EditorGUI.BeginDisabledGroup(!band.enabled);
-
                 band.label     = EditorGUILayout.TextField("Name", band.label);
                 band.heightMin = EditorGUILayout.FloatField("Height min", band.heightMin);
                 band.heightMax = EditorGUILayout.FloatField("Height max", band.heightMax);
-
                 EditorGUILayout.Space();
                 band.blendMode = (BlendMode)EditorGUILayout.EnumPopup("Blend Mode", band.blendMode);
 
                 if (band.blendMode == BlendMode.Noise)
                 {
-                    EditorGUILayout.HelpBox(
-                        "Noise mode: each point gets one dominant texture based on Perlin Noise.\n" +
-                        "Scale = pattern size. Sharpness = how hard the edges are.",
-                        MessageType.None);
+                    EditorGUILayout.HelpBox("Noise mode: each point gets one dominant texture based on Perlin Noise.", MessageType.None);
                     band.noiseScale     = EditorGUILayout.FloatField("Noise Scale", band.noiseScale);
                     band.noiseSharpness = EditorGUILayout.Slider("Sharpness", band.noiseSharpness, 1f, 10f);
                     band.noiseOffset    = EditorGUILayout.Vector2Field("Noise Offset", band.noiseOffset);
@@ -132,9 +191,7 @@ public class TerrainAutoTexture : EditorWindow
                     EditorGUILayout.EndHorizontal();
                 }
 
-                if (removeLayer >= 0)
-                    band.layers.RemoveAt(removeLayer);
-
+                if (removeLayer >= 0) band.layers.RemoveAt(removeLayer);
                 if (GUILayout.Button("+ Add Layer"))
                     band.layers.Add(new LayerEntry { layerIndex = 0, weight = 1f });
 
@@ -145,8 +202,7 @@ public class TerrainAutoTexture : EditorWindow
             EditorGUILayout.Space();
         }
 
-        if (removeIndex >= 0)
-            heightBands.RemoveAt(removeIndex);
+        if (removeIndex >= 0) heightBands.RemoveAt(removeIndex);
 
         if (GUILayout.Button("+ Add Height Band"))
         {
@@ -160,32 +216,76 @@ public class TerrainAutoTexture : EditorWindow
 
         EditorGUILayout.Space();
 
-        if (terrain == null)
+        List<Terrain> applyTargets = GetTargetTerrains();
+        if (applyTargets.Count == 0)
         {
-            EditorGUILayout.HelpBox("Select a Terrain object.", MessageType.Warning);
+            EditorGUILayout.HelpBox("No terrains selected.", MessageType.Warning);
             EditorGUILayout.EndScrollView();
             return;
         }
 
-        if (terrain.terrainData.terrainLayers.Length < 2)
-        {
-            EditorGUILayout.HelpBox("Terrain needs at least 2 layers.", MessageType.Error);
-            EditorGUILayout.EndScrollView();
-            return;
-        }
+        EditorGUILayout.HelpBox("Will apply to " + applyTargets.Count + " terrain(s).", MessageType.Info);
 
-        if (GUILayout.Button("Apply Auto Texture"))
-            ApplyTexture();
+        if (GUILayout.Button("Apply Auto Texture to All"))
+            foreach (Terrain t in applyTargets)
+                if (t != null) ApplyTexture(t);
 
         EditorGUILayout.EndScrollView();
     }
 
-    private void ApplyTexture()
+    private List<Terrain> GetTargetTerrains()
     {
-        TerrainData data  = terrain.terrainData;
-        int alphaWidth    = data.alphamapWidth;
-        int alphaHeight   = data.alphamapHeight;
-        int layerCount    = data.terrainLayers.Length;
+        if (autoFindTerrains)
+            return new List<Terrain>(FindObjectsOfType<Terrain>());
+        return terrains;
+    }
+
+    private void SmoothTerrain(Terrain terrain)
+    {
+        TerrainData data = terrain.terrainData;
+        int w = data.heightmapResolution;
+        int h = data.heightmapResolution;
+
+        float t = smoothStrength / 10f; // normalize to 0..1 blend factor
+
+        for (int pass = 0; pass < smoothPasses; pass++)
+        {
+            float[,] heights = data.GetHeights(0, 0, w, h);
+            float[,] smoothed = new float[w, h];
+
+            for (int y = 0; y < h; y++)
+            {
+                for (int x = 0; x < w; x++)
+                {
+                    float avg = 0f;
+                    int count = 0;
+                    for (int dy = -1; dy <= 1; dy++)
+                    {
+                        for (int dx = -1; dx <= 1; dx++)
+                        {
+                            int nx = Mathf.Clamp(x + dx, 0, w - 1);
+                            int ny = Mathf.Clamp(y + dy, 0, h - 1);
+                            avg += heights[ny, nx];
+                            count++;
+                        }
+                    }
+                    avg /= count;
+                    smoothed[y, x] = Mathf.Lerp(heights[y, x], avg, t);
+                }
+            }
+
+            data.SetHeights(0, 0, smoothed);
+        }
+
+        Debug.Log("Smoothed: " + terrain.name + " | Strength: " + smoothStrength + " | Passes: " + smoothPasses);
+    }
+
+    private void ApplyTexture(Terrain terrain)
+    {
+        TerrainData data    = terrain.terrainData;
+        int alphaWidth      = data.alphamapWidth;
+        int alphaHeight     = data.alphamapHeight;
+        int layerCount      = data.terrainLayers.Length;
         Vector3 terrainSize = data.size;
 
         float[,,] alphaMaps = data.GetAlphamaps(0, 0, alphaWidth, alphaHeight);
@@ -217,32 +317,24 @@ public class TerrainAutoTexture : EditorWindow
 
                 if (activeBand != null && activeBand.layers.Count > 0)
                 {
-                    if (activeBand.blendMode == BlendMode.Uniform)
-                    {
-                        float totalWeight = 0f;
-                        foreach (LayerEntry e in activeBand.layers)
-                            totalWeight += e.weight;
+                    float totalWeight = 0f;
+                    foreach (LayerEntry e in activeBand.layers)
+                        totalWeight += e.weight;
 
-                        if (totalWeight > 0f)
+                    if (totalWeight > 0f)
+                    {
+                        if (activeBand.blendMode == BlendMode.Uniform)
+                        {
                             foreach (LayerEntry e in activeBand.layers)
                                 if (e.layerIndex < layerCount)
                                     alphaMaps[y, x, e.layerIndex] += e.weight / totalWeight;
-                    }
-                    else // Noise
-                    {
-                        // Build cumulative weight ranges for each layer
-                        float totalWeight = 0f;
-                        foreach (LayerEntry e in activeBand.layers)
-                            totalWeight += e.weight;
-
-                        if (totalWeight > 0f)
+                        }
+                        else
                         {
                             float nx = (worldX + activeBand.noiseOffset.x) / activeBand.noiseScale;
                             float nz = (worldZ + activeBand.noiseOffset.y) / activeBand.noiseScale;
-                            float noiseVal = Mathf.PerlinNoise(nx, nz); // 0..1
+                            float noiseVal = Mathf.PerlinNoise(nx, nz);
 
-                            // Raise to sharpness power to push toward 0 or 1
-                            // Remap so each layer occupies a slice of 0..1
                             float cursor = 0f;
                             int chosenLayer = activeBand.layers[0].layerIndex;
                             foreach (LayerEntry e in activeBand.layers)
@@ -255,21 +347,6 @@ public class TerrainAutoTexture : EditorWindow
                                 }
                                 cursor += slice;
                             }
-
-                            // Apply sharpness: blend between chosen and neighbours
-                            // Simple approach: give chosen layer full weight, blend at edges
-                            float edgeDist = 0f;
-                            float c2 = 0f;
-                            foreach (LayerEntry e in activeBand.layers)
-                            {
-                                float slice = e.weight / totalWeight;
-                                float center = c2 + slice * 0.5f;
-                                float dist = Mathf.Abs(noiseVal - center) / (slice * 0.5f);
-                                edgeDist = dist;
-                                c2 += slice;
-                            }
-
-                            float sharpBlend = Mathf.Pow(Mathf.Clamp01(edgeDist), activeBand.noiseSharpness);
 
                             if (chosenLayer < layerCount)
                                 alphaMaps[y, x, chosenLayer] = 1f;
@@ -300,6 +377,6 @@ public class TerrainAutoTexture : EditorWindow
         }
 
         data.SetAlphamaps(0, 0, alphaMaps);
-        Debug.Log("Terrain auto texture applied!");
+        Debug.Log("Applied textures to: " + terrain.name);
     }
 }
