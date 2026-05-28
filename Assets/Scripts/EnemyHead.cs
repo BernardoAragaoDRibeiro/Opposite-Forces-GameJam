@@ -29,16 +29,7 @@ public class EnemyHead : MonoBehaviour
         float damage = damageRatio * MaxDamage;
         
         GetComponentInParent<Enemy>().TakeDamage(damage);
-        controller.Bounce(BounceStrength);
-    }
-
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
+        float charge = controller.ConsumeCharge();
+        controller.Bounce(BounceStrength + charge * BounceStrength);
     }
 }

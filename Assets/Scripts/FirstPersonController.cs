@@ -210,71 +210,61 @@ namespace StarterAssets
 
 		private void JumpAndGravity()
 		{
+			// captura velocidade de queda frame enquanto está caindo
+			if (_verticalVelocity < 0f)
+				LastFallVelocity = _verticalVelocity;
+
+			// carga acumula em qualquer lugar — no chão ou no ar
+			#if ENABLE_INPUT_SYSTEM
+			bool jumpHeld = Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+			#else
+			bool jumpHeld = Input.GetKey(KeyCode.Space);
+			#endif
+
+			if (jumpHeld)
+			{
+				_isCharging = true;
+				_jumpCharge = Mathf.Clamp01(_jumpCharge + Time.deltaTime / MaxChargeTime);
+			}
+
 			if (Grounded)
 			{
-				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
 
-				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
-				{
-					LastFallVelocity = _verticalVelocity;
 					_verticalVelocity = -2f;
-				}
 
-				// Charge Jump
-				if (_jumpTimeoutDelta <= 0.0f)
+				if (_jumpTimeoutDelta <= 0.0f && _isCharging && !jumpHeld)
 				{
-					#if ENABLE_INPUT_SYSTEM
-					bool jumpHeld = Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
-					#else
-					bool jumpHeld = Input.GetKey(KeyCode.Space);
-					#endif
-
-					if (jumpHeld)
-					{
-						_isCharging = true;
-						_jumpCharge = Mathf.Clamp01(_jumpCharge + Time.deltaTime / MaxChargeTime);
-					}
-					else if (_isCharging)
-					{
-						float jumpHeight = Mathf.Lerp(MinJumpHeight, MaxJumpHeight, _jumpCharge);
-						_verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Gravity);
-						_jumpCharge = 0f;
-						_isCharging = false;
-					}
+					float jumpHeight = Mathf.Lerp(MinJumpHeight, MaxJumpHeight, _jumpCharge);
+					_verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Gravity);
+					_jumpCharge = 0f;
+					_isCharging = false;
 				}
 
-				// jump timeout
 				if (_jumpTimeoutDelta >= 0.0f)
-				{
 					_jumpTimeoutDelta -= Time.deltaTime;
-				}
 			}
 			else
 			{
-				// reset the jump timeout timer
 				_jumpTimeoutDelta = JumpTimeout;
 
-				// fall timeout
 				if (_fallTimeoutDelta >= 0.0f)
-				{
 					_fallTimeoutDelta -= Time.deltaTime;
-				}
 
-				// if we are not grounded, do not jump
 				_input.jump = false;
-
-				// zera carga se sair do chão sem ter soltado
-				_jumpCharge = 0f;
-				_isCharging = false;
 			}
 
-			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity)
-			{
 				_verticalVelocity += Gravity * Time.deltaTime;
-			}
+		}
+		
+		public float ConsumeCharge()
+		{
+			float charge = _jumpCharge;
+			_jumpCharge = 0f;
+			_isCharging = false;
+			return charge;
 		}
 
 		public void Bounce(float force)
