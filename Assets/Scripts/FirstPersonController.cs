@@ -210,7 +210,7 @@ namespace StarterAssets
 
 		private void JumpAndGravity()
 		{
-			// captura velocidade de queda todo frame enquanto está caindo
+			// captura velocidade de queda frame enquanto está caindo
 			if (_verticalVelocity < 0f)
 				LastFallVelocity = _verticalVelocity;
 
