@@ -7,21 +7,23 @@ public class EyeAI : MonoBehaviour
     public float ToleranceRange = 1.5f;
     public float MoveSpeed = 3f;
     public float RetreatingSpeed = 2f;
+    public float MinHeight = 3f;
 
     [Header("Combate")]
     public float ProjectileSpeed = 10f;
     public float AttackCooldown = 2f;
+    public float MaxShootDistance = 15f;
     public GameObject ProjectilePrefab;
     public Transform FirePoint;
 
-    private Transform _playerCamera;
     private Transform _player;
+    private Transform _playerCamera;
     private float _attackTimer = 0f;
 
     private void Start()
     {
-        _playerCamera = Camera.main.transform;
         _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerCamera = Camera.main.transform;
     }
 
     private void Update()
@@ -29,13 +31,7 @@ public class EyeAI : MonoBehaviour
         if (_player == null) return;
 
         HandleMovement();
-
-        _attackTimer -= Time.deltaTime;
-        if (_attackTimer <= 0f)
-        {
-            Shoot();
-            _attackTimer = AttackCooldown;
-        }
+        HandleAttack();
     }
 
     private void HandleMovement()
@@ -44,18 +40,34 @@ public class EyeAI : MonoBehaviour
         Vector3 directionToPlayer = (_player.position - transform.position).normalized;
 
         if (distance > PreferredDistance + ToleranceRange)
-        {
-            // too far away: get closer
             transform.position += directionToPlayer * (MoveSpeed * Time.deltaTime);
-        }
         else if (distance < PreferredDistance - ToleranceRange)
-        {
-            // too close: go away
             transform.position -= directionToPlayer * (RetreatingSpeed * Time.deltaTime);
-        }
 
-        // always looking at the player
+        Vector3 pos = transform.position;
+        pos.y = Mathf.Max(pos.y, MinHeight);
+        transform.position = pos;
+
         transform.LookAt(_playerCamera);
+    }
+
+    private void HandleAttack()
+    {
+        float distance = Vector3.Distance(transform.position, _player.position);
+
+        if (distance <= MaxShootDistance)
+        {
+            _attackTimer -= Time.deltaTime;
+            if (_attackTimer <= 0f)
+            {
+                Shoot();
+                _attackTimer = AttackCooldown;
+            }
+        }
+        else
+        {
+            _attackTimer = AttackCooldown;
+        }
     }
 
     private void Shoot()
@@ -63,7 +75,6 @@ public class EyeAI : MonoBehaviour
         if (ProjectilePrefab == null || FirePoint == null) return;
 
         Vector3 direction = (_playerCamera.position - FirePoint.position).normalized;
-
         GameObject proj = Instantiate(ProjectilePrefab, FirePoint.position, Quaternion.LookRotation(direction));
         Rigidbody rb = proj.GetComponent<Rigidbody>();
         if (rb != null)
