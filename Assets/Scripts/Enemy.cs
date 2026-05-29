@@ -12,6 +12,9 @@ public class Enemy : MonoBehaviour
     
     public float MaxHP = 100f;
     private float _currentHP;
+    
+    [Header("Valor de Pontuação")]
+    public int ScoreValue = 10;
 
     private void Start()
     {
@@ -46,6 +49,9 @@ public class Enemy : MonoBehaviour
         if (waveManager != null)
             waveManager.OnEnemyDied();
 
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddScore(ScoreValue);
+        
         Destroy(gameObject);
     }
 

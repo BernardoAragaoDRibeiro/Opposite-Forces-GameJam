@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1f;
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.ResetScore();
         SceneManager.LoadScene("Game");
     }
 
