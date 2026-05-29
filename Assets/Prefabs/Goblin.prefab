@@ -129,6 +129,10 @@ MonoBehaviour:
   MaxImpactVelocity: 20
   MaxDamage: 100
   BounceStrength: 18
+  ProximityRadius: 2
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8992447881160316824
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,9 +262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e932a1e09d3458e4bbefb222c6f6f09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  HitClips:
+  - {fileID: 8300000, guid: 9f6e288747aa58740bf58ea7c2e686a2, type: 3}
+  - {fileID: 8300000, guid: a10fb3687962d324fb72c9900733be8a, type: 3}
+  - {fileID: 8300000, guid: 7376941d7fd124f4f8fd0bb9e91c1d26, type: 3}
+  - {fileID: 8300000, guid: f15bc0b06bf7cf14b8b1cefbb2b45dee, type: 3}
+  - {fileID: 8300000, guid: b32947d20b9939049acc257e0df305da, type: 3}
   HitColor: {r: 1, g: 0.5490196, b: 0, a: 1}
   HitFreezeDuration: 0.1
   MaxHP: 10
+  ScoreValue: 10
 --- !u!195 &5633503594202862173
 NavMeshAgent:
   m_ObjectHideFlags: 0

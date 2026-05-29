@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9f357aaf1dc3d4d843fe24c3b6f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  MenuMusic: {fileID: 8300000, guid: 7d981c030001bfd4899529972220d341, type: 3}
+  GameMusic: {fileID: 8300000, guid: 43d0efaf969f4c746aff8f8f7f820409, type: 3}
 --- !u!114 &754352008768257370
 MonoBehaviour:
   m_ObjectHideFlags: 0

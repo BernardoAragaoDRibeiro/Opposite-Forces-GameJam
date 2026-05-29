@@ -1457,6 +1457,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1942423057}
+        m_TargetAssemblyTypeName: UISound, Assembly-CSharp
+        m_MethodName: PlaySelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &212862056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6033,6 +6045,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1942423057}
+        m_TargetAssemblyTypeName: UISound, Assembly-CSharp
+        m_MethodName: PlayAccept
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1709532308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6295,6 +6319,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1160760223}
         m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
         m_MethodName: OnQuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1942423057}
+        m_TargetAssemblyTypeName: UISound, Assembly-CSharp
+        m_MethodName: PlayBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7117,6 +7153,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895004461}
   m_CullTransparentMesh: 1
+--- !u!1001 &1942423056
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 790729793484062552, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_Name
+      value: UISounds
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 619
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 280.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698620777035260638, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+--- !u!114 &1942423057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2907845951738679696, guid: 52fa13fd8b1ed2443b3716f644ef2c9e, type: 3}
+  m_PrefabInstance: {fileID: 1942423056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b6b13e9f41ce845b2c06939ecaca4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISound
 --- !u!1 &1974085467
 GameObject:
   m_ObjectHideFlags: 0
@@ -8016,6 +8120,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6677883133541154090, guid: a58a07efdeb50584592cf89c7a69e21f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1942423057}
+    - target: {fileID: 6677883133541154090, guid: a58a07efdeb50584592cf89c7a69e21f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayBack
+      objectReference: {fileID: 0}
     - target: {fileID: 8568209919516712616, guid: a58a07efdeb50584592cf89c7a69e21f, type: 3}
       propertyPath: m_Name
       value: PanelOptions
@@ -8254,3 +8366,4 @@ SceneRoots:
   - {fileID: 132174307}
   - {fileID: 2037011473}
   - {fileID: 1832756229}
+  - {fileID: 1942423056}

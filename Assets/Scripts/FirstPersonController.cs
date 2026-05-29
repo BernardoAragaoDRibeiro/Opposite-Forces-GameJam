@@ -30,6 +30,8 @@ namespace StarterAssets
 		public float MaxChargeTime = 1.0f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float Gravity = -15.0f;
+		[Tooltip("Jump Audio")]
+		public AudioClip JumpClip;
 
 		[Space(10)]
 		[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -251,6 +253,9 @@ namespace StarterAssets
 					_verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Gravity);
 					_jumpCharge = 0f;
 					_isCharging = false;
+
+					if (JumpClip != null && AudioManager.Instance != null)
+						AudioManager.Instance.PlaySFX(JumpClip);
 				}
 
 				if (_jumpTimeoutDelta >= 0.0f)

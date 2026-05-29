@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Áudio")]
+    public AudioClip[] HitClips;
+    
     [Header("Hit Feedback")]
     public Color HitColor = Color.orange;
     public float HitFreezeDuration = 0.1f;
@@ -30,15 +33,15 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHP -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {_currentHP}");
-        
+
+        if (HitClips.Length > 0 && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(HitClips[Random.Range(0, HitClips.Length)]);
+
         StopAllCoroutines();
         StartCoroutine(HitRoutine());
 
         if (_currentHP <= 0f)
-        {
             Die();
-        }
     }
 
     private void Die()
