@@ -12,8 +12,14 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // player damage here
-        Debug.Log($"Projétil atingiu: {collision.gameObject.name}");
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            PlayerHealth health = collision.gameObject.GetComponentInParent<PlayerHealth>();
+            if (health != null)
+                health.TakeDamage(Damage);
+            else
+                Debug.Log("PlayerHealth não encontrado no objeto atingido");
+        }
         Destroy(gameObject);
     }
 }

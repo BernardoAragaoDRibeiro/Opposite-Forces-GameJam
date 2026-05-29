@@ -43,16 +43,15 @@ public class GoblinAI : MonoBehaviour
             _agent.SetDestination(_player.position); // hunt player down
         }
     }
-
-    // attach animation?
+    
     public void Attack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, _player.position);
         if (distanceToPlayer <= AttackRange)
         {
-            Debug.Log("Goblin attacked the player!");
-            // deal damage logic
-            // PlayerHealth.TakeDamage(AttackDamage)
+            PlayerHealth health = _player.GetComponent<PlayerHealth>();
+            if (health != null)
+                health.TakeDamage(AttackDamage);
         }
     }
 }
