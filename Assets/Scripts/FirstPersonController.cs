@@ -30,6 +30,8 @@ namespace StarterAssets
 		public float MaxChargeTime = 1.0f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float Gravity = -15.0f;
+		[Tooltip("Gravidade anulada no grappling hook")]
+		public bool IsGrappling { get; set; }
 
 		[Space(10)]
 		[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -64,6 +66,7 @@ namespace StarterAssets
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
 		public float LastFallVelocity { get; private set; }
+		private Vector3 _grappleVelocity;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -109,12 +112,11 @@ namespace StarterAssets
 		{
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM
+			#if ENABLE_INPUT_SYSTEM
 			_playerInput = GetComponent<PlayerInput>();
-#else
+			#else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
-
+			#endif
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
@@ -206,10 +208,20 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			
+			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime)
+			                 + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime
+			                 + _grappleVelocity * Time.deltaTime);
 		}
 
 		private void JumpAndGravity()
 		{
+			if (IsGrappling)
+			{
+				_verticalVelocity = 0f;
+				return;
+			}
+			
 			// captura velocidade de queda frame enquanto está caindo
 			if (_verticalVelocity < 0f)
 				LastFallVelocity = _verticalVelocity;
@@ -271,7 +283,17 @@ namespace StarterAssets
 		{
 			_verticalVelocity = force;
 		}
+		
+		public void SetGrappleVelocity(Vector3 velocity)
+		{
+			_grappleVelocity = velocity;
+		}
 
+		public void ClearGrappleVelocity()
+		{
+			_grappleVelocity = Vector3.zero;
+		}
+		
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
 			if (lfAngle < -360f) lfAngle += 360f;

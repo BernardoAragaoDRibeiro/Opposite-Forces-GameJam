@@ -12,6 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool grappleHook;
+		public bool cancelGrapple;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -64,6 +66,16 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
+		}
+
+		public void OnGrappleHook(InputValue value)
+		{
+			grappleHook = value.isPressed;
+		}
+		
+		public void OnCancelGrapple(InputValue value)
+		{
+			cancelGrapple = value.isPressed;
 		}
 		
 		private void OnApplicationFocus(bool hasFocus)
