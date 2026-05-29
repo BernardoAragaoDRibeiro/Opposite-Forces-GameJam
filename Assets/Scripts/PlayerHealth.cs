@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public AudioClip[] GameOverClips;
     public float MaxHP = 100f;
     [field: SerializeField]
     public float CurrentHP { get; private set; }
@@ -21,6 +22,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (GameOverClips.Length > 0 && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(GameOverClips[Random.Range(0, GameOverClips.Length)]);
+
         GameManager.Instance.GoToGameOver();
     }
 }

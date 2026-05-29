@@ -128,7 +128,11 @@ MonoBehaviour:
   MinImpactVelocity: 0
   MaxImpactVelocity: 20
   MaxDamage: 100
-  BounceStrength: 28
+  BounceStrength: 9
+  ProximityRadius: 2
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &6611647608260774342
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +272,12 @@ MonoBehaviour:
   MaxShootDistance: 25
   ProjectilePrefab: {fileID: 664236569012219442, guid: c20088a37bd02ba4e8fe2bed4b7d3cfc, type: 3}
   FirePoint: {fileID: 3947900222968046795}
+  ShootClips:
+  - {fileID: 8300000, guid: ef524c7f9b1e6324a86cc73ddb325106, type: 3}
+  - {fileID: 8300000, guid: 601341c406020e44e91d4fdacbfb0a57, type: 3}
+  - {fileID: 8300000, guid: 69bf622b3bc9bdd409a3de54de44eccb, type: 3}
+  - {fileID: 8300000, guid: 2b6db096a79916b4fa519b04c3a36503, type: 3}
+  - {fileID: 8300000, guid: c8db89ad06a134b49ac2e73f1f37d550, type: 3}
 --- !u!114 &5483394132232627076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,9 +290,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e932a1e09d3458e4bbefb222c6f6f09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  HitClips: []
   HitColor: {r: 1, g: 0.6470588, b: 0, a: 1}
   HitFreezeDuration: 0.1
   MaxHP: 10
+  ScoreValue: 10
 --- !u!1 &7507027701815117743
 GameObject:
   m_ObjectHideFlags: 0

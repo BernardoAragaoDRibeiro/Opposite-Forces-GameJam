@@ -54,7 +54,6 @@ public class GrapplingHook : MonoBehaviour
         switch (_state)
         {
             case State.Extending: UpdateExtending(); break;
-            case State.Pulling:   UpdatePulling();   break;
         }
     }
 
@@ -87,27 +86,15 @@ public class GrapplingHook : MonoBehaviour
         Line.SetPosition(1, _lineEnd);
 
         if (Vector3.Distance(_lineEnd, _targetPoint) < 0.1f)
-            _state = State.Pulling;
-    }
-
-    private void UpdatePulling()
-    {
-        _controller.IsGrappling = true;
-        
-        Line.SetPosition(0, FirePoint.position);
-        Line.SetPosition(1, _targetPoint);
-
-        Vector3 direction = (_targetPoint - transform.position).normalized;
-        _controller.SetGrappleVelocity(direction * PullSpeed);
-
-        if (Vector3.Distance(transform.position, _targetPoint) <= StopDistance)
+        {
+            Vector3 direction = (_targetPoint - transform.position).normalized;
+            _controller.SetGrappleVelocity(direction * PullSpeed);
             EndHook();
+        }
     }
 
     private void EndHook()
     {
-        _controller.IsGrappling = false;
-        _controller.ClearGrappleVelocity();
         Line.enabled = false;
         _state = State.Idle;
         _cooldownTimer = Cooldown;

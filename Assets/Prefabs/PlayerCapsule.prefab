@@ -332,6 +332,7 @@ MonoBehaviour:
   MaxJumpHeight: 22
   MaxChargeTime: 0.8
   Gravity: -40
+  JumpClip: {fileID: 8300000, guid: 871f6219e18f59c4886ef645ecbe8324, type: 3}
   JumpTimeout: 0.1
   FallTimeout: 0.15
   Grounded: 1
@@ -436,6 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acefc3914b92f7f4f918ec913b5db08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  GameOverClips: []
   MaxHP: 100
   <CurrentHP>k__BackingField: 0
 --- !u!120 &6787231857541243937

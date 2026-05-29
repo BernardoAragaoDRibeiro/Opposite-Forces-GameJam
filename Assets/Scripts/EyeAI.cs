@@ -15,6 +15,7 @@ public class EyeAI : MonoBehaviour
     public float MaxShootDistance = 15f;
     public GameObject ProjectilePrefab;
     public Transform FirePoint;
+    public AudioClip[] ShootClips;
 
     private Transform _player;
     private Transform _playerCamera;
@@ -75,6 +76,8 @@ public class EyeAI : MonoBehaviour
         if (ProjectilePrefab == null || FirePoint == null) return;
 
         Vector3 direction = (_playerCamera.position - FirePoint.position).normalized;
+        if (ShootClips.Length > 0 && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(ShootClips[Random.Range(0, ShootClips.Length)]);
         GameObject proj = Instantiate(ProjectilePrefab, FirePoint.position, Quaternion.LookRotation(direction));
         Rigidbody rb = proj.GetComponent<Rigidbody>();
         if (rb != null)

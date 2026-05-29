@@ -30,8 +30,8 @@ namespace StarterAssets
 		public float MaxChargeTime = 1.0f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float Gravity = -15.0f;
-		[Tooltip("Gravidade anulada no grappling hook")]
-		public bool IsGrappling { get; set; }
+		[Tooltip("Jump Audio")]
+		public AudioClip JumpClip;
 
 		[Space(10)]
 		[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -110,6 +110,7 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			RotationSpeed = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 			#if ENABLE_INPUT_SYSTEM
@@ -205,23 +206,23 @@ namespace StarterAssets
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
-
-			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 			
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime)
+			bool hasGrappleVelocity = _grappleVelocity.magnitude > 0.1f;
+
+			// decai o impulso ao longo do tempo
+			if (hasGrappleVelocity)
+				_grappleVelocity = Vector3.MoveTowards(_grappleVelocity, Vector3.zero, 15f * Time.deltaTime);
+
+			// durante impulso, movimento normal não interfere
+			Vector3 moveContribution = hasGrappleVelocity ? Vector3.zero : inputDirection.normalized * (_speed * Time.deltaTime);
+
+			_controller.Move(moveContribution
 			                 + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime
 			                 + _grappleVelocity * Time.deltaTime);
 		}
 
 		private void JumpAndGravity()
 		{
-			if (IsGrappling)
-			{
-				_verticalVelocity = 0f;
-				return;
-			}
-			
 			// captura velocidade de queda frame enquanto está caindo
 			if (_verticalVelocity < 0f)
 				LastFallVelocity = _verticalVelocity;
@@ -252,6 +253,9 @@ namespace StarterAssets
 					_verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Gravity);
 					_jumpCharge = 0f;
 					_isCharging = false;
+
+					if (JumpClip != null && AudioManager.Instance != null)
+						AudioManager.Instance.PlaySFX(JumpClip);
 				}
 
 				if (_jumpTimeoutDelta >= 0.0f)
@@ -287,11 +291,6 @@ namespace StarterAssets
 		public void SetGrappleVelocity(Vector3 velocity)
 		{
 			_grappleVelocity = velocity;
-		}
-
-		public void ClearGrappleVelocity()
-		{
-			_grappleVelocity = Vector3.zero;
 		}
 		
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

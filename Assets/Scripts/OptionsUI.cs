@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
 
 public class OptionsUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class OptionsUI : MonoBehaviour
 
     [Header("Sensibilidade")]
     public Slider SensitivitySlider;
+    public TextMeshProUGUI SensitivityValueText;
 
     private const string MASTER_KEY = "MasterVolume";
     private const string SFX_KEY = "SFXVolume";
@@ -24,6 +26,7 @@ public class OptionsUI : MonoBehaviour
         SFXSlider.value = PlayerPrefs.GetFloat(SFX_KEY, 1f);
         MusicSlider.value = PlayerPrefs.GetFloat(MUSIC_KEY, 1f);
         SensitivitySlider.value = PlayerPrefs.GetFloat(SENS_KEY, 1f);
+        UpdateSensitivityText(SensitivitySlider.value);
     }
 
     public void OnMasterChanged(float value)
@@ -47,6 +50,13 @@ public class OptionsUI : MonoBehaviour
     public void OnSensitivityChanged(float value)
     {
         PlayerPrefs.SetFloat(SENS_KEY, value);
+        PlayerPrefs.Save();
+        UpdateSensitivityText(value);
+    }
+
+    private void UpdateSensitivityText(float value)
+    {
+        SensitivityValueText.text = $"{Mathf.RoundToInt(value * 100)}%";
     }
 
     public void OnBackButton()
