@@ -31,18 +31,22 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void GoToMainMenu()
-    {
-        Time.timeScale = 1f;
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayMusic(MenuMusic);
-        SceneManager.LoadScene("MainMenu");
-    }
-
     public void GoToGameOver()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("GameOver");
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayMusic(MenuMusic);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()

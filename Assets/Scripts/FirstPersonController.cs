@@ -110,17 +110,21 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			RotationSpeed = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 			#if ENABLE_INPUT_SYSTEM
 			_playerInput = GetComponent<PlayerInput>();
 			#else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+			Debug.LogError("Starter Assets package is missing dependencies.");
 			#endif
-			// reset our timeouts on start
+
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+			RotationSpeed = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
+
+			// força travamento do cursor ao entrar na cena de jogo
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
 		}
 
 		private void Update()
