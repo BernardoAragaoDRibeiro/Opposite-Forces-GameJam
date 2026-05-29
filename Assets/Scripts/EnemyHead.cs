@@ -31,5 +31,9 @@ public class EnemyHead : MonoBehaviour
         GetComponentInParent<Enemy>().TakeDamage(damage);
         float charge = controller.ConsumeCharge();
         controller.Bounce(BounceStrength + charge * BounceStrength);
+        
+        LandingAoE aoe = other.GetComponent<LandingAoE>();
+        if (aoe != null)
+            aoe.TriggerAoE(controller.LastFallVelocity);
     }
 }
