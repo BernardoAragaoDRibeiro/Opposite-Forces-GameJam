@@ -2325,8 +2325,12 @@ PrefabInstance:
       objectReference: {fileID: 451340133}
     - target: {fileID: 6787231857541243937, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6787231857541243937, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8616685848737228372, guid: 24fcea9ce2b367a448e80f746c6d1c2c, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
@@ -4325,6 +4329,7 @@ MonoBehaviour:
   TimeBeforeFirstWave: 3
   EnemiesOnFirstWave: 70
   EnemiesAddedPerWave: 10
+  MaxEnemiesOnScreen: 150
 --- !u!4 &1449168827
 Transform:
   m_ObjectHideFlags: 0

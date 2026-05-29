@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     public float TimeBeforeFirstWave = 3f;
     public int EnemiesOnFirstWave = 2;
     public int EnemiesAddedPerWave = 3;
+    public int MaxEnemiesOnScreen = 150;
 
     private int _currentWave = 0;
     private int _enemiesAlive = 0;
@@ -28,11 +29,10 @@ public class WaveManager : MonoBehaviour
     {
         _currentWave++;
         int enemiesToSpawn = EnemiesOnFirstWave + (_currentWave - 1) * EnemiesAddedPerWave;
-        _enemiesAlive = enemiesToSpawn;
+        int canSpawn = Mathf.Min(enemiesToSpawn, MaxEnemiesOnScreen - _enemiesAlive);
+        _enemiesAlive += canSpawn;
 
-        Debug.Log($"Wave {_currentWave} — {enemiesToSpawn} enemies");
-
-        for (int i = 0; i < enemiesToSpawn; i++)
+        for (int i = 0; i < canSpawn; i++)
         {
             Transform spawnPoint = SpawnPoints[i % SpawnPoints.Length];
             GameObject prefab = EnemyPrefabs[Random.Range(0, EnemyPrefabs.Length)];
