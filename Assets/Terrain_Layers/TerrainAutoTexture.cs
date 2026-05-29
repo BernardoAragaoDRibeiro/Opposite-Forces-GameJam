@@ -68,7 +68,7 @@ public class TerrainAutoTexture : EditorWindow
         if (GUILayout.Button("Find Now", GUILayout.Width(80)))
         {
             terrains.Clear();
-            foreach (Terrain t in FindObjectsOfType<Terrain>())
+            foreach (Terrain t in FindObjectsByType<Terrain>(FindObjectsSortMode.None))
                 terrains.Add(t);
         }
         EditorGUILayout.EndHorizontal();
@@ -236,7 +236,7 @@ public class TerrainAutoTexture : EditorWindow
     private List<Terrain> GetTargetTerrains()
     {
         if (autoFindTerrains)
-            return new List<Terrain>(FindObjectsOfType<Terrain>());
+            return new List<Terrain>(FindObjectsByType<Terrain>(FindObjectsSortMode.None));
         return terrains;
     }
 
@@ -246,7 +246,7 @@ public class TerrainAutoTexture : EditorWindow
         int w = data.heightmapResolution;
         int h = data.heightmapResolution;
 
-        float t = smoothStrength / 10f; // normalize to 0..1 blend factor
+        float t = smoothStrength / 10f;
 
         for (int pass = 0; pass < smoothPasses; pass++)
         {
