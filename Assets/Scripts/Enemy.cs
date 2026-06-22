@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("Áudio")]
     public AudioClip[] HitClips;
+    public AudioClip[] DeathClips;
+    [Range(0f, 1f)] public float DeathVolume = 1f;
     
     [Header("Hit Feedback")]
     public Color HitColor = Color.orange;
@@ -47,6 +49,9 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log($"{gameObject.name} died.");
+
+        if (DeathClips.Length > 0 && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(DeathClips[Random.Range(0, DeathClips.Length)], DeathVolume);
     
         WaveManager waveManager = FindFirstObjectByType<WaveManager>();
         if (waveManager != null)

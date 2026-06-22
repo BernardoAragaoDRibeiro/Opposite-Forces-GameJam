@@ -18,6 +18,7 @@ public class FootstepSystem : MonoBehaviour
     public float StepIntervalWalking = 0.5f;
     public float StepIntervalSprinting = 0.3f;
     public float RaycastDistance = 1.5f;
+    [Range(0f, 1f)] public float FootstepVolume = 1f;
     
     private FirstPersonController _controller;
     private CharacterController _characterController;
@@ -61,7 +62,7 @@ public class FootstepSystem : MonoBehaviour
         if (clips == null || clips.Length == 0) return;
 
         AudioClip clip = clips[Random.Range(0, clips.Length)];
-        AudioManager.Instance.PlaySFX(clip);
+        AudioManager.Instance.PlaySFX(clip, FootstepVolume);
     }
 
     private AudioClip[] GetClipsForMaterial(PhysicsMaterial material)

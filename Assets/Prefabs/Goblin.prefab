@@ -128,7 +128,7 @@ MonoBehaviour:
   MinImpactVelocity: 0
   MaxImpactVelocity: 20
   MaxDamage: 100
-  BounceStrength: 18
+  BounceStrength: 20
   ProximityRadius: 2
   PlayerLayer:
     serializedVersion: 2
@@ -263,11 +263,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   HitClips:
-  - {fileID: 8300000, guid: 9f6e288747aa58740bf58ea7c2e686a2, type: 3}
-  - {fileID: 8300000, guid: a10fb3687962d324fb72c9900733be8a, type: 3}
-  - {fileID: 8300000, guid: 7376941d7fd124f4f8fd0bb9e91c1d26, type: 3}
-  - {fileID: 8300000, guid: f15bc0b06bf7cf14b8b1cefbb2b45dee, type: 3}
-  - {fileID: 8300000, guid: b32947d20b9939049acc257e0df305da, type: 3}
+  - {fileID: 8300000, guid: ddfecc613fe3a4b4d8ae2a64023eebca, type: 3}
+  - {fileID: 8300000, guid: e4af4a4d90c5beb499bbd3b103c00860, type: 3}
+  - {fileID: 8300000, guid: b82a597d17a6eb84db8e55dce8aa721b, type: 3}
+  - {fileID: 8300000, guid: bd585755f3af7a34fa594b37c68eae4f, type: 3}
+  - {fileID: 8300000, guid: 3bc58b69bdf5ac648b598c6f88321844, type: 3}
+  DeathClips:
+  - {fileID: 8300000, guid: ddfecc613fe3a4b4d8ae2a64023eebca, type: 3}
+  - {fileID: 8300000, guid: e4af4a4d90c5beb499bbd3b103c00860, type: 3}
+  - {fileID: 8300000, guid: b82a597d17a6eb84db8e55dce8aa721b, type: 3}
+  - {fileID: 8300000, guid: bd585755f3af7a34fa594b37c68eae4f, type: 3}
+  - {fileID: 8300000, guid: 3bc58b69bdf5ac648b598c6f88321844, type: 3}
   HitColor: {r: 1, g: 0.5490196, b: 0, a: 1}
   HitFreezeDuration: 0.1
   MaxHP: 10

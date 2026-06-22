@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.071, z: 0}
-  m_LocalScale: {x: 2.611718, y: 2.4333375, z: 2.8044388}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.34, y: 2.1801777, z: 2.5126705}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6546751981195501462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,11 +128,11 @@ MonoBehaviour:
   MinImpactVelocity: 0
   MaxImpactVelocity: 20
   MaxDamage: 100
-  BounceStrength: 9
+  BounceStrength: 20
   ProximityRadius: 2
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &6611647608260774342
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4077057385646355253}
   - component: {fileID: 1479831464230036932}
   - component: {fileID: 5483394132232627076}
+  - component: {fileID: 4109409422757652055}
   m_Layer: 12
   m_Name: Beholder
   m_TagString: Untagged
@@ -248,7 +249,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.4495997
+  m_Radius: 1.06
   m_Center: {x: 0, y: -0.038436312, z: 0}
 --- !u!114 &1479831464230036932
 MonoBehaviour:
@@ -267,6 +268,8 @@ MonoBehaviour:
   MoveSpeed: 3
   RetreatingSpeed: 2
   MinHeight: 15
+  SeparationRadius: 3
+  SeparationForce: 4
   ProjectileSpeed: 10
   AttackCooldown: 2
   MaxShootDistance: 25
@@ -290,11 +293,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e932a1e09d3458e4bbefb222c6f6f09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  HitClips: []
+  HitClips:
+  - {fileID: 8300000, guid: aa50a0f054984b344a1b6cf0f626945d, type: 3}
+  - {fileID: 8300000, guid: 4c14b660f4bd24d49ae514e1c5fae446, type: 3}
+  - {fileID: 8300000, guid: 89edaf024c7fe2647bc6de2927686440, type: 3}
+  - {fileID: 8300000, guid: 9a2f82906edba4d459f5672f5bb785af, type: 3}
+  - {fileID: 8300000, guid: 126eb473a74bbff469c5781e38b72538, type: 3}
+  DeathClips:
+  - {fileID: 8300000, guid: aa50a0f054984b344a1b6cf0f626945d, type: 3}
+  - {fileID: 8300000, guid: 4c14b660f4bd24d49ae514e1c5fae446, type: 3}
+  - {fileID: 8300000, guid: 89edaf024c7fe2647bc6de2927686440, type: 3}
+  - {fileID: 8300000, guid: 9a2f82906edba4d459f5672f5bb785af, type: 3}
+  - {fileID: 8300000, guid: 126eb473a74bbff469c5781e38b72538, type: 3}
+  DeathVolume: 0.38
   HitColor: {r: 1, g: 0.6470588, b: 0, a: 1}
   HitFreezeDuration: 0.1
   MaxHP: 10
   ScoreValue: 10
+--- !u!54 &4109409422757652055
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6611647608260774342}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &7507027701815117743
 GameObject:
   m_ObjectHideFlags: 0

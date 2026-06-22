@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: fa4ffd32709146c448c403bfd045f3fb
+guid: a6a47d88fd1346446bee29a331e97f79
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 4300000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 145808
-  packageName: Terrain Sample Asset Pack
-  packageVersion: 2.0.1
-  assetPath: Assets/TerrainSampleAssets/Models/Heather_B.asset
-  uploadId: 511657

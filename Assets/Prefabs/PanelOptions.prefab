@@ -637,6 +637,8 @@ MonoBehaviour:
   clickScale: 0.95
   scaleSpeed: 10
   hoverOffsetX: 6
+  HoverClip: {fileID: 0}
+  ClickClip: {fileID: 0}
 --- !u!1 &1522170549764629832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +1951,8 @@ MonoBehaviour:
   clickScale: 0.95
   scaleSpeed: 10
   hoverOffsetX: 6
+  HoverClip: {fileID: 0}
+  ClickClip: {fileID: 0}
 --- !u!1 &4600644922810496114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2356,8 @@ MonoBehaviour:
   clickScale: 0.95
   scaleSpeed: 10
   hoverOffsetX: 6
+  HoverClip: {fileID: 0}
+  ClickClip: {fileID: 0}
 --- !u!1 &6098669867404989343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,6 +2637,8 @@ MonoBehaviour:
   clickScale: 0.95
   scaleSpeed: 10
   hoverOffsetX: 6
+  HoverClip: {fileID: 0}
+  ClickClip: {fileID: 0}
 --- !u!1 &7329596904837579565
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,6 +3206,8 @@ MonoBehaviour:
   clickScale: 0.95
   scaleSpeed: 10
   hoverOffsetX: 6
+  HoverClip: {fileID: 0}
+  ClickClip: {fileID: 0}
 --- !u!1 &8242915827114198091
 GameObject:
   m_ObjectHideFlags: 0
@@ -3434,7 +3444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9542d4ca4ac7ab4f9463d93cd33af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OptionsUI
-  AudioMixer: {fileID: 24100000, guid: af55a3b7da63f08438d11e2dbb5c3c56, type: 2}
   MasterSlider: {fileID: 6609736515491182492}
   SFXSlider: {fileID: 5490767296907154493}
   MusicSlider: {fileID: 5469179218977842132}
@@ -3657,3 +3666,5 @@ MonoBehaviour:
   clickScale: 0.95
   scaleSpeed: 10
   hoverOffsetX: 6
+  HoverClip: {fileID: 0}
+  ClickClip: {fileID: 0}

@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: 19f3cdde7d5104c4da897ac17045ddfd
+guid: f276c9169b7b2bc41bbe4a5e46c9019e
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 4300000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 145808
-  packageName: Terrain Sample Asset Pack
-  packageVersion: 2.0.1
-  assetPath: Assets/TerrainSampleAssets/Models/Fern_C.asset
-  uploadId: 511657

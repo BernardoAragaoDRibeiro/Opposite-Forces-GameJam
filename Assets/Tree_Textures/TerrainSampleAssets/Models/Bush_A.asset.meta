@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: 0c4301a6ce8e5964c8df62a78aca15d1
+guid: a01b48a8056afa843bca38b8413d5ad2
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 4300000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 145808
-  packageName: Terrain Sample Asset Pack
-  packageVersion: 2.0.1
-  assetPath: Assets/TerrainSampleAssets/Models/Bush_A.asset
-  uploadId: 511657

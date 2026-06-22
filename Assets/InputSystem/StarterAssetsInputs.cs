@@ -80,6 +80,7 @@ namespace StarterAssets
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{
+			if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
 			SetCursorState(cursorLocked);
 		}
 

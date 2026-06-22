@@ -21,6 +21,10 @@ public class MenuItemEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Header("Offset de hover (pixels)")]
     public float hoverOffsetX   = 6f;
 
+    [Header("Áudio")]
+    public AudioClip HoverClip;
+    public AudioClip ClickClip;
+
     private Vector3 baseScale;
     private Vector3 basePosition;
     private Vector3 targetScale;
@@ -55,6 +59,8 @@ public class MenuItemEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         targetScale    = baseScale * hoverScale;
         targetPosition = basePosition + new Vector3(hoverOffsetX, 0f, 0f);
         targetColor    = colorHover;
+        if (HoverClip != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(HoverClip);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -69,6 +75,8 @@ public class MenuItemEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         targetScale = baseScale * clickScale;
         targetColor = colorClick;
+        if (ClickClip != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(ClickClip);
     }
 
     public void OnPointerUp(PointerEventData eventData)

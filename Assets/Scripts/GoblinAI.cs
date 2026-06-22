@@ -9,6 +9,8 @@ public class GoblinAI : MonoBehaviour
     public float AttackDamage = 10f;
     public float AttackCooldown = 1f;
 
+    public bool IsStomped = false;
+
     private Transform _player;
     private NavMeshAgent _agent;
     private Enemy _enemy;
@@ -23,6 +25,7 @@ public class GoblinAI : MonoBehaviour
 
     private void Update()
     {
+        if (IsStomped) return;
         if (_player == null) return;
         
         float distanceToPlayer = Vector3.Distance(transform.position, _player.position);
@@ -44,6 +47,11 @@ public class GoblinAI : MonoBehaviour
         }
     }
     
+    public void ResetAttackTimer()
+    {
+        _attackTimer = AttackCooldown;
+    }
+
     public void Attack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, _player.position);

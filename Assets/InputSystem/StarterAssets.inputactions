@@ -44,7 +44,7 @@
                 },
                 {
                     "name": "GrappleHook",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "7345a1ff-fc53-4002-80f6-7188f94d255e",
                     "expectedControlType": "",
                     "processors": "",

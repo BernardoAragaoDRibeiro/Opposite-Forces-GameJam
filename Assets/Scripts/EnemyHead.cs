@@ -58,6 +58,13 @@ public class EnemyHead : MonoBehaviour
         float damageRatio = Mathf.InverseLerp(MinImpactVelocity, MaxImpactVelocity, fallSpeed);
         GetComponentInParent<Enemy>().TakeDamage(damageRatio * MaxDamage);
 
+        GoblinAI goblinAI = GetComponentInParent<GoblinAI>();
+        if (goblinAI != null)
+        {
+            goblinAI.IsStomped = true;
+            goblinAI.ResetAttackTimer();
+        }
+
         float totalBounce = _bounceQueued
             ? BounceStrength + controller.ConsumeCharge() * BounceStrength
             : BounceStrength;
